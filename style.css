@@ -1,0 +1,22 @@
+body{
+  text-align: center;
+}
+#pokemonImage{
+  width: 200px
+}
+
+#error{
+  color: red;
+}
+
+#infoField{
+  text-align: center;
+}
+
+ul{
+  margin: 10px auto;
+  width: 200px;
+}
+
+.ability {
+}
