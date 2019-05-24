@@ -2,30 +2,31 @@ const searchForm = document.getElementById("searchForm")
 const errorField = document.getElementById("error")
 
 searchForm.addEventListener('submit', fetchPokemon)
-trainerButton.addEventListener('click', fetchNewUser)
+// trainerButton.addEventListener('click', fetchNewUser)
 
 
-function fetchNewUser (){
-  const body = {
-    name: "Scott",
-    age: 30,
-    email: "Scott@example.com",
-    password: "Password"
-  }
-
-  fetch('http://localhost:3000/trainers', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(body)
-  })
-  .then(resp => resp.json())
-  .then(console.log)
-}
+// function fetchNewUser (){
+//   const body = {
+//     name: "Scott",
+//     age: 30,
+//     email: "Scott@example.com",
+//     password: "Password"
+//   }
+//
+//   fetch('http://localhost:3000/trainers', {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(body)
+//   })
+//   .then(resp => resp.json())
+//   .then(console.log)
+// }
 
 function fetchPokemon(e){
   e.preventDefault()
+  $("#pokemonImage").removeClass('runAway')
   errorField.innerHTML = ''
   const name = $("#pokemonName").val().toLowerCase()
   fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -78,7 +79,10 @@ function displayError(error){
 }
 
 function catchPokemon(data){
-  Math.random() > 0.7 ? caughtPokemon(data): missedPokemon(data)
+  const odds = Math.random() + data.base_experience/1000
+  console.log('base', data.base_experience)
+  console.log(odds)
+  odds < 0.7 ? caughtPokemon(data): missedPokemon(data)
 }
 
 function caughtPokemon(data){
@@ -107,6 +111,8 @@ function caughtPokemon(data){
 function missedPokemon(data){
   displayError(`Sorry ${data.name} ran away`)
   $("#pokemonImage").attr('src', data.sprites.back_default)
+  $("#pokemonImage").addClass('runAway')
+  $("#infoField").html('')
 }
 
 

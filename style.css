@@ -2,7 +2,12 @@ body{
   text-align: center;
 }
 #pokemonImage{
-  width: 200px
+  width: 200px;
+  transition: 1.4s;
+}
+
+.runAway{
+  transform: scale(0);
 }
 
 #error{
